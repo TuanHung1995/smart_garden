@@ -1,7 +1,7 @@
 package com.sg.ddd.infrastructure.persistence.repository;
 
 import com.sg.ddd.domain.model.entity.TicketDetail;
-import com.sg.ddd.domain.respository.TicketDetailRepository;
+import com.sg.ddd.domain.repository.TicketDetailRepository;
 import com.sg.ddd.infrastructure.persistence.mapper.TicketDetailJPAMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
