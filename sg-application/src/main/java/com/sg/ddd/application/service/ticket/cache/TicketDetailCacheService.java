@@ -90,7 +90,7 @@ public class TicketDetailCacheService {
             // OK XONG, chung ta review code nay ok ... ddau vaof DDD thoi nao
         } catch (Exception e) {
             throw new RuntimeException(e);
-        }finally {
+        } finally {
             // Lưu ý: Cho dù thành công hay không cũng phải unLock, bằng mọi giá.
             // Lưu ý: Cho dù thành công hay không cũng phải unLock, bằng mọi giá.
             // Lưu ý: Cho dù thành công hay không cũng phải unLock, bằng mọi giá.
