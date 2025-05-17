@@ -1,4 +1,4 @@
-package com.xxxx.ddd.controller.model.enums;
+package com.sg.ddd.controller.model.enums;
 
 /**
  * Trả về mã trạng thái

@@ -25,6 +25,23 @@ services:
     networks:
       - pre-event-network
 
+  #Postgres
+#  postgres:
+#    image: postgres:17
+#    container_name: pre-event-postgres
+#    restart: always
+#    volumes:
+#      - ./data/pg_data:/var/lib/postgresql/data
+#      - ./postgres/init:/docker-entrypoint-initdb.d/  # Thư mục chứa script khởi tạo
+#    environment:
+#      POSTGRES_USER: root
+#      POSTGRES_PASSWORD: root1234
+#      POSTGRES_DB: sg_001
+#    ports:
+#      - "5433:5432"
+#    networks:
+#      - pre-event-network
+
   #Redis
   redis:
     container_name: pre-event-redis
@@ -35,98 +52,115 @@ services:
       - pre-event-network
 
   # Prometheus
-  prometheus:
-    image: prom/prometheus
-    container_name: pre-event-prometheus
-    restart: unless-stopped
-    volumes:
-      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./data/prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--web.console.libraries=/etc/prometheus/console_libraries'
-      - '--web.console.templates=/etc/prometheus/consoles'
-      - '--web.enable-lifecycle'
-    extra_hosts:
-      - host.docker.internal:host-gateway
-    ports:
-      - "9090:9090"
-    networks:
-      - pre-event-network
+#  prometheus:
+#    image: prom/prometheus
+#    container_name: pre-event-prometheus
+#    restart: unless-stopped
+#    volumes:
+#      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+#      - ./data/prometheus_data:/prometheus
+#    command:
+#      - '--config.file=/etc/prometheus/prometheus.yml'
+#      - '--storage.tsdb.path=/prometheus'
+#      - '--web.console.libraries=/etc/prometheus/console_libraries'
+#      - '--web.console.templates=/etc/prometheus/consoles'
+#      - '--web.enable-lifecycle'
+#    extra_hosts:
+#      - host.docker.internal:host-gateway
+#    ports:
+#      - "9090:9090"
+#    networks:
+#      - pre-event-network
 
   #Graphana
-  grafana:
-    image: grafana/grafana
-    container_name: pre-event-grafana
-    hostname: grafana
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin
-      - GF_USERS_ALLOW_SIGN_UP=false
-      - GF_SERVER_DOMAIN=localhost
-      # enable logger
-      - GF_LOG_MODE=console
-      - GF_LOG_FILTERS=alerting.notifier.slack:debug altermanager:debug ngalert:debug
-
-    volumes:
-      - ./grafana_storage:/var/lib/grafana
-    ports:
-      - "3000:3000"
-    networks:
-      - pre-event-network
+#  grafana:
+#    image: grafana/grafana
+#    container_name: pre-event-grafana
+#    hostname: grafana
+#    environment:
+#      - GF_SECURITY_ADMIN_PASSWORD=admin
+#      - GF_USERS_ALLOW_SIGN_UP=false
+#      - GF_SERVER_DOMAIN=localhost
+#      # enable logger
+#      - GF_LOG_MODE=console
+#      - GF_LOG_FILTERS=alerting.notifier.slack:debug altermanager:debug ngalert:debug
+#
+#    volumes:
+#      - ./grafana_storage:/var/lib/grafana
+#    ports:
+#      - "3000:3000"
+#    networks:
+#      - pre-event-network
 
   # Node Exporter
-  node-exporter:
-    image: prom/node-exporter:latest
-    container_name: pre-event-node-exporter
-    restart: unless-stopped
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-
-    command:
-      - --path.procfs=/host/proc
-      - --path.rootfs=/rootfs
-      - --path.sysfs=/host/sys
-      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
-    ports:
-      - "9100:9100"
-    networks:
-      - pre-event-network
+#  node-exporter:
+#    image: prom/node-exporter:latest
+#    container_name: pre-event-node-exporter
+#    restart: unless-stopped
+#    volumes:
+#      - /proc:/host/proc:ro
+#      - /sys:/host/sys:ro
+#      - /:/rootfs:ro
+#
+#    command:
+#      - --path.procfs=/host/proc
+#      - --path.rootfs=/rootfs
+#      - --path.sysfs=/host/sys
+#      - --collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)
+#    ports:
+#      - "9100:9100"
+#    networks:
+#      - pre-event-network
 
   # MySQL Exporter
-  mysql-exporter:
-    image: prom/mysqld-exporter
-    container_name: pre-event-mysql-exporter
-    restart: unless-stopped
-    ports:
-      - "9104:9104"
-    command:
-      - '--collect.engine_innodb_status'
-      - '--collect.info_schema.processlist'
-      - '--collect.info_schema.tables'
-      - '--collect.info_schema.query_response_time'
-      - '--collect.perf_schema.file_events'
-      - '--collect.perf_schema.eventsstatements'
-      - '--collect.perf_schema.indexiowaits'
-      - '--collect.global_status'
-      #      - '--ignore-tables'
-      - '--config.my-cnf=/etc/mysql/.my.cnf'
-    volumes:
-      - ./mysqld-exporter/.my.cnf:/etc/mysql/.my.cnf
-    environment:
-      - DATA_SOURCE_NAME=root:root1234@tcp(mysql:3316)/
-    depends_on:
-      - mysql
-    networks:
-      - pre-event-network
+#  mysql-exporter:
+#    image: prom/mysqld-exporter
+#    container_name: pre-event-mysql-exporter
+#    restart: unless-stopped
+#    ports:
+#      - "9104:9104"
+#    command:
+#      - '--collect.engine_innodb_status'
+#      - '--collect.info_schema.processlist'
+#      - '--collect.info_schema.tables'
+#      - '--collect.info_schema.query_response_time'
+#      - '--collect.perf_schema.file_events'
+#      - '--collect.perf_schema.eventsstatements'
+#      - '--collect.perf_schema.indexiowaits'
+#      - '--collect.global_status'
+#      #      - '--ignore-tables'
+#      - '--config.my-cnf=/etc/mysql/.my.cnf'
+#    volumes:
+#      - ./mysqld-exporter/.my.cnf:/etc/mysql/.my.cnf
+#    environment:
+#      - DATA_SOURCE_NAME=root:root1234@tcp(mysql:3316)/
+#    depends_on:
+#      - mysql
+#    networks:
+#      - pre-event-network
+
+#  postgres-exporter:
+#    image: prometheuscommunity/postgres-exporter
+#    container_name: pre-event-postgres-exporter
+#    restart: unless-stopped
+#    ports:
+#      - "9187:9187"
+#    environment:
+#      DATA_SOURCE_NAME: "postgresql://root:root1234@postgres:5432/sg_001?sslmode=disable"
+#      PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
+#      PG_EXPORTER_EXTEND_QUERY_PATH: "/etc/postgres-exporter/queries.yaml"  # Tùy chọn mở rộng
+#    volumes:
+#      - ./postgres-exporter/queries.yaml:/etc/postgres-exporter/queries.yaml  # Nếu bạn muốn custom query
+#    depends_on:
+#      - postgres
+#    networks:
+#      - pre-event-network
 
   # Redis Exporter
-  redis-exporter:
-    image: oliver006/redis_exporter
-    command: -redis.addr redis://redis:6379
-    ports:
-      - 9121:9121
-    networks:
-      - pre-event-network
+#  redis-exporter:
+#    image: oliver006/redis_exporter
+#    command: -redis.addr redis://redis:6379
+#    ports:
+#      - 9121:9121
+#    networks:
+#      - pre-event-network

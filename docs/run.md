@@ -10,6 +10,3 @@ MYSQL_DATABASE: ticket
 MYSQL_PASSWORD: root1234
 ```
 Chú ý: Khi run thành công thi sẽ tự tạo một folder `data/db_data` trong `environment`
-
-## How to test 
-View video: Tuyến phòng thủ thứ 4
