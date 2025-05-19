@@ -25,23 +25,6 @@ services:
     networks:
       - pre-event-network
 
-  #Postgres
-#  postgres:
-#    image: postgres:17
-#    container_name: pre-event-postgres
-#    restart: always
-#    volumes:
-#      - ./data/pg_data:/var/lib/postgresql/data
-#      - ./postgres/init:/docker-entrypoint-initdb.d/  # Thư mục chứa script khởi tạo
-#    environment:
-#      POSTGRES_USER: root
-#      POSTGRES_PASSWORD: root1234
-#      POSTGRES_DB: sg_001
-#    ports:
-#      - "5433:5432"
-#    networks:
-#      - pre-event-network
-
   #Redis
   redis:
     container_name: pre-event-redis
@@ -139,23 +122,6 @@ services:
     networks:
       - pre-event-network
 
-#  postgres-exporter:
-#    image: prometheuscommunity/postgres-exporter
-#    container_name: pre-event-postgres-exporter
-#    restart: unless-stopped
-#    ports:
-#      - "9187:9187"
-#    environment:
-#      DATA_SOURCE_NAME: "postgresql://root:root1234@postgres:5432/sg_001?sslmode=disable"
-#      PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
-#      PG_EXPORTER_EXTEND_QUERY_PATH: "/etc/postgres-exporter/queries.yaml"  # Tùy chọn mở rộng
-#    volumes:
-#      - ./postgres-exporter/queries.yaml:/etc/postgres-exporter/queries.yaml  # Nếu bạn muốn custom query
-#    depends_on:
-#      - postgres
-#    networks:
-#      - pre-event-network
-
   # Redis Exporter
   redis-exporter:
     image: oliver006/redis_exporter
@@ -164,3 +130,86 @@ services:
       - "9121:9121"
     networks:
       - pre-event-network
+
+  # elasticsearch:
+
+
+
+  # ElasticSearch
+  elasticsearch:
+    image: elasticsearch:9.0.1
+    container_name: pre-event-elasticsearch
+    volumes:
+      - ./elk/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+        - "9200:9200"
+        - "9300:9300"
+    environment:
+      ES_JAVA_OPTS: "-Xmx256m -Xms256m"
+      discovery.type: single-node
+    networks:
+      - pre-event-network
+
+  # Logstash
+  logstash:
+    image: logstash:9.0.1
+    container_name: pre-event-logstash
+    volumes:
+      - ./elk/logstash.yml:/usr/share/logstash/config/logstash.yml
+      - ./elk/pipeline:/usr/share/logstash/pipeline
+    ports:
+        - "5044:5044"
+        - "5033:5000/tcp"
+        - "5022:5000/udp"
+        - "9600:9600"
+    environment:
+      LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    networks:
+        - pre-event-network
+
+  # Kibana
+  kibana:
+    image: kibana:9.0.1
+    container_name: pre-event-kibana
+    volumes:
+        - ./elk/kibana.yml:/usr/share/kibana/config/kibana.yml
+    ports:
+        - "5601:5601"
+    networks:
+        - pre-event-network
+    depends_on:
+      - elasticsearch
+
+#  postgres-exporter:
+  #    image: prometheuscommunity/postgres-exporter
+  #    container_name: pre-event-postgres-exporter
+  #    restart: unless-stopped
+  #    ports:
+  #      - "9187:9187"
+  #    environment:
+  #      DATA_SOURCE_NAME: "postgresql://root:root1234@postgres:5432/sg_001?sslmode=disable"
+  #      PG_EXPORTER_AUTO_DISCOVER_DATABASES: "true"
+  #      PG_EXPORTER_EXTEND_QUERY_PATH: "/etc/postgres-exporter/queries.yaml"  # Tùy chọn mở rộng
+  #    volumes:
+  #      - ./postgres-exporter/queries.yaml:/etc/postgres-exporter/queries.yaml  # Nếu bạn muốn custom query
+  #    depends_on:
+  #      - postgres
+  #    networks:
+  #      - pre-event-network
+
+  #Postgres
+#  postgres:
+#    image: postgres:17
+#    container_name: pre-event-postgres
+#    restart: always
+#    volumes:
+#      - ./data/pg_data:/var/lib/postgresql/data
+#      - ./postgres/init:/docker-entrypoint-initdb.d/  # Thư mục chứa script khởi tạo
+#    environment:
+#      POSTGRES_USER: root
+#      POSTGRES_PASSWORD: root1234
+#      POSTGRES_DB: sg_001
+#    ports:
+#      - "5433:5432"
+#    networks:
+#      - pre-event-network
