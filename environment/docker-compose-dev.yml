@@ -18,7 +18,7 @@ services:
     ]
     environment:
       MYSQL_ROOT_PASSWORD: root1234
-      MYSQL_DATABASE: ticket
+      MYSQL_DATABASE: sg_001
       MYSQL_PASSWORD: root1234
     ports:
       - "3316:3306"
@@ -164,8 +164,15 @@ services:
         - "9600:9600"
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9600"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
     networks:
         - pre-event-network
+    depends_on:
+      - elasticsearch
 
   # Kibana
   kibana:

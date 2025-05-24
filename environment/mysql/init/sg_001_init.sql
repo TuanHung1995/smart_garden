@@ -1,9 +1,9 @@
-CREATE DATABASE IF NOT EXISTS vetautet
+CREATE DATABASE IF NOT EXISTS sg_001
     DEFAULT CHARSET = utf8mb4
     COLLATE = utf8mb4_unicode_ci;
 
 -- 1. ticket table
-CREATE TABLE IF NOT EXISTS `vetautet`.`ticket` (
+CREATE TABLE IF NOT EXISTS `sg_001`.`ticket` (
      `id` BIGINT(20)  NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
     `name` VARCHAR(50) NOT NULL COMMENT 'ticket name',
     `desc` TEXT COMMENT 'ticket description',
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `vetautet`.`ticket` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'ticket table';
 
 -- 2. ticket detail (item) table
-CREATE TABLE IF NOT EXISTS `vetautet`.`ticket_item` (
+CREATE TABLE IF NOT EXISTS `sg_001`.`ticket_item` (
     `id` BIGINT(20)  NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
     `name` VARCHAR(50) NOT NULL COMMENT 'Ticket title',
     `description` TEXT COMMENT 'Ticket description',
@@ -58,5 +58,68 @@ VALUES
     ('Vé Sự Kiện 01/01 - Hạng Phổ Thông', 'Vé phổ thông cho sự kiện ngày 01/01', 2000, 2000, 0, 100000, 10000, '2025-01-01 00:00:00', '2025-01-01 23:59:59', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP),
     ('Vé Sự Kiện 01/01 - Hạng VIP', 'Vé VIP cho sự kiện ngày 01/01', 1000, 1000, 0, 200000, 15000, '2025-01-01 00:00:00', '2025-01-01 23:59:59', 1, 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
 
+-- sg_media_001
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_media_001` (
+                                                       `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `url` TEXT NOT NULL COMMENT 'Media URL',
+    `type` VARCHAR(255) NOT NULL COMMENT 'Media type',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Media resources table';
 
+-- sg_plants_001
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_plants_001` (
+                                                        `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `name` VARCHAR(255) NOT NULL COMMENT 'Plant name',
+    `scientific_name` VARCHAR(255) NOT NULL COMMENT 'Scientific name',
+    `description` TEXT NOT NULL COMMENT 'Plant description',
+    `significant` TEXT NOT NULL COMMENT 'Plant significance',
+    `grows` TEXT NOT NULL COMMENT 'Growth environment',
+    `main_image_url` BIGINT(20) NOT NULL COMMENT 'Reference to media table',
+    `season` CHAR(1) NOT NULL COMMENT 'Season (X, H, T, Đ)',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Plant master data';
 
+-- sg_soil_types_001
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_soil_types_001` (
+                                                            `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `type` VARCHAR(255) NOT NULL COMMENT 'Soil type name',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Soil type master';
+
+-- sg_soils_001
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_soils_001` (
+    `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `type_id` BIGINT(20) NOT NULL COMMENT 'Reference to soil type',
+    `name` VARCHAR(255) NOT NULL COMMENT 'Soil name',
+    `pH_level` FLOAT NOT NULL COMMENT 'Soil pH level',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`type_id`) REFERENCES `sg_001`.`sg_soil_types_001`(`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Soil characteristics table';
+
+-- sg_countries_001
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_countries_001` (
+    `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `country` VARCHAR(255) NOT NULL COMMENT 'Country name',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Country list';
+
+-- sg_regions_001
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_regions_001` (
+    `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `country_id` BIGINT(20) NOT NULL COMMENT 'Reference to country',
+    `region` VARCHAR(255) NOT NULL COMMENT 'Region name',
+    `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`country_id`) REFERENCES `sg_001`.`sg_countries_001`(`id`)
+    ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = 'Region list per country';
