@@ -248,7 +248,7 @@ INSERT INTO ticket_item (name, description, stock_initial, stock_available, is_s
 --     updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 --     );
 -- COMMENT ON TABLE sg_news_categories_001 IS 'News categories';
---
+
 -- -- sg_categories_news_001
 -- -- CREATE TABLE IF NOT EXISTS sg_categories_news_001 (
 -- --     id BIGSERIAL PRIMARY KEY,

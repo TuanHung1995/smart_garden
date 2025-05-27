@@ -1,3 +1,5 @@
+jwt:
+  secret: "sg.com.jwt.secret"
 server:
   port: 1122
   tomcat:
