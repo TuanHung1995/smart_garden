@@ -2,6 +2,7 @@ package com.sg.ddd.controller.http.auth;
 
 import com.sg.ddd.application.payload.JwtAuthResponse;
 import com.sg.ddd.application.payload.LoginRequest;
+import com.sg.ddd.application.payload.RegisterRequest;
 import com.sg.ddd.application.service.auth.AuthAppService;
 import com.sg.ddd.application.service.user.UserAppService;
 import com.sg.ddd.domain.repository.UserRepository;
@@ -37,6 +38,25 @@ public class AuthController {
         // Return the token in the response
         log.info("Token: {}", token);
         return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
+        log.info("Registering user with email: {}", request.getEmail());
+
+        // Check if user already exists
+//        if (userAppService.findByEmail(request.getEmail()).isPresent()) {
+//            log.warn("User already exists with email: {}", request.getEmail());
+//            return ResponseEntity.badRequest().body("User already exists");
+//        }
+
+        // Register the user
+        String result = authService.register(request.getEmail(), request.getPassword(),
+                                             request.getAddress(), request.getFirstName(),
+                                             request.getLastName(), request.getPhone());
+        log.info("User registered successfully: {}", request.getEmail());
+
+        return ResponseEntity.ok(result);
     }
 
 }

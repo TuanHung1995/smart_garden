@@ -22,4 +22,17 @@ public class UserInfrasRepositoryImpl implements UserRepository {
         return userJPAMapper.findByEmail(email);
     }
 
+    @Override
+    public User save(String email, String password, String address, String phone) {
+        User user = new User();
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setAddress(address);
+        user.setPhone(phone);
+        user.setRole("ROLE_USER");
+
+        log.info("Saving user with email: {}", email);
+        return userJPAMapper.save(user);
+    }
+
 }
