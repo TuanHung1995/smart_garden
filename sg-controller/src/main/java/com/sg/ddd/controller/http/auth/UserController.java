@@ -1,6 +1,10 @@
 package com.sg.ddd.controller.http.auth;
 
+import com.sg.ddd.application.payload.JwtAuthResponse;
+import com.sg.ddd.application.payload.LoginRequest;
+import com.sg.ddd.application.service.auth.AuthAppService;
 import com.sg.ddd.application.service.user.UserAppService;
+import com.sg.ddd.controller.http.auth.dto.FindUserRequest;
 import com.sg.ddd.domain.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,22 +15,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/api/v1/auth")
 @Slf4j
 public class UserController {
 
     @Autowired
     private UserAppService userAppService;
 
+    private final AuthAppService authService;
+
+    public UserController(AuthAppService authService) {
+        this.authService = authService;
+    }
+
     // Find User by Email
      @PostMapping("/findByEmail")
-     public ResponseEntity<?> findByEmail(@RequestBody String email) {
+     public ResponseEntity<?> findByEmail(@RequestBody FindUserRequest request) {
 
-         log.info("Find User by Email: {}", email);
-         Optional<User> user = userAppService.findByEmail(email);
+         log.info("Find User by Email: {}", request.getEmail());
+         Optional<User> user = userAppService.findByEmail(request.getEmail());
          if (user.isPresent()) {
              return ResponseEntity.ok(user.get());
          } else {
@@ -36,10 +47,18 @@ public class UserController {
 
 
     // Login
-//     @PostMapping("/login")
-//     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-//    //     log.info("Login request: {}", loginRequest);
-//    //     return ResponseEntity.ok("Login successful");
-    // }
+     @PostMapping("/login")
+     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
+            log.info("Login attempt for email: {}", request.getEmail());
+         String token = authService.login(request);
+         log.info("User logged in: {}", request.getEmail());
+
+         JwtAuthResponse response = new JwtAuthResponse();
+         response.setAccessToken(token);
+
+            // Return the token in the response
+         log.info("Token: {}", token);
+         return ResponseEntity.ok(response);
+     }
 
 }

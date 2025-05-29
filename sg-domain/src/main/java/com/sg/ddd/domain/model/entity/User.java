@@ -1,15 +1,15 @@
 package com.sg.ddd.domain.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.Accessors;
 
 import java.util.Date;
 
-@Data
+
 @Accessors(chain = true)
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
