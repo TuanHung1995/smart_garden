@@ -45,20 +45,7 @@ public class UserController {
          }
      }
 
-
     // Login
-     @PostMapping("/login")
-     public ResponseEntity<?> login(@RequestBody LoginRequest request) {
-            log.info("Login attempt for email: {}", request.getEmail());
-         String token = authService.login(request);
-         log.info("User logged in: {}", request.getEmail());
 
-         JwtAuthResponse response = new JwtAuthResponse();
-         response.setAccessToken(token);
-
-            // Return the token in the response
-         log.info("Token: {}", token);
-         return ResponseEntity.ok(response);
-     }
 
 }

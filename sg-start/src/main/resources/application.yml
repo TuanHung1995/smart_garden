@@ -1,6 +1,11 @@
 jwt:
   secret: "f382b7233634548f3f29cb8720f505a5300c24ac22c5b21bf020bc481b27e44d"
   expiration: 86400000 # 1 day in milliseconds
+
+weather:
+  api:
+    key: "ce39795b8df343d5aea152445252805"
+
 server:
   port: 1122
   tomcat:
