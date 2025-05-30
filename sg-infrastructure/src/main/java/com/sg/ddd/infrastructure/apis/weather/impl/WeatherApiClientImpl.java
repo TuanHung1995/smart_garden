@@ -1,7 +1,7 @@
-package com.sg.ddd.infrastructure.weather.impl;
+package com.sg.ddd.infrastructure.apis.weather.impl;
 
+import com.sg.ddd.infrastructure.apis.weather.WeatherApiClient;
 import com.sg.ddd.infrastructure.payload.WeatherResponse;
-import com.sg.ddd.infrastructure.weather.WeatherApiClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
