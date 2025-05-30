@@ -57,6 +57,17 @@ spring:
   threads:
     virtual:
       enabled: true
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tuanhungg1995@gmail.com
+    password: poit cobu lcgu rhwh
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 resilience4j:
   circuitbreaker:
     instances:

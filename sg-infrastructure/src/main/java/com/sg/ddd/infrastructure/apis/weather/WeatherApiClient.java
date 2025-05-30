@@ -1,4 +1,4 @@
-package com.sg.ddd.infrastructure.weather;
+package com.sg.ddd.infrastructure.apis.weather;
 
 import com.sg.ddd.infrastructure.payload.WeatherResponse;
 

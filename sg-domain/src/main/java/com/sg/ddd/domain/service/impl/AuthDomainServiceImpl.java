@@ -18,7 +18,7 @@ public class AuthDomainServiceImpl implements AuthDomainService {
     }
 
     @Override
-    public User register(String email, String password, String address,
+    public User register(String email, String password, String confirmPassword, String address,
                          String firstName, String lastName, String phone) {
 
         return userRepository.save(
@@ -27,6 +27,16 @@ public class AuthDomainServiceImpl implements AuthDomainService {
                 address,
                 phone
         );
+    }
+
+    @Override
+    public void forgotPassword(String email) {
+        userRepository.forgotPassword(email);
+    }
+
+    @Override
+    public void resetPassword(String token, String newPassword, String confirmNewPassword) {
+        userRepository.resetPassword(token, newPassword, confirmNewPassword);
     }
 
 }

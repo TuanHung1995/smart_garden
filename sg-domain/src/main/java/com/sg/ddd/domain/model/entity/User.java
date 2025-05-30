@@ -28,6 +28,7 @@ public class User {
     private String address;
     private double latitude;
     private double longitude;
+    private String resetToken; // Token for password reset
     private Date createdAt;
     private Date updatedAt;
 
