@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/plant")
+@RequestMapping("/api/v1/plant")
 @Slf4j
 public class PlantController {
 
@@ -28,10 +28,14 @@ public class PlantController {
 //    }
 
 
-    @GetMapping("/get-all-plant-grow-info/{email}")
-    public ResultMessage<List<PlantGrowInfo>> getAllPlantGrowInfo(@PathVariable("email") String email) {
-        log.info("Retrieving all plant grow info");
-        List<PlantGrowInfo> plantGrowInfoListByEmail= plantGrowInfoAppService.getAllPlantGrowInfoByEmail(email);
+    /**
+     * Retrieves all plant grow information for the current user.
+     *
+     * @return a ResultMessage containing a list of PlantGrowInfo objects
+     */
+    @GetMapping("/get-all-plant-grow-info")
+    public ResultMessage<List<PlantGrowInfo>> getAllPlantGrowInfo() {
+        List<PlantGrowInfo> plantGrowInfoListByEmail= plantGrowInfoAppService.getAllPlantGrowInfoByEmail();
         return ResultUtil.data(plantGrowInfoListByEmail);
     }
 

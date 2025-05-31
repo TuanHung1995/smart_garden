@@ -6,6 +6,7 @@ import java.util.List;
 
 public interface PlantGrowInfoAppService {
 
-    List<PlantGrowInfo> getAllPlantGrowInfoByEmail(String email);
+//    List<PlantGrowInfo> getAllPlantGrowInfoByEmail(String email);
+    List<PlantGrowInfo> getAllPlantGrowInfoByEmail();
 
 }

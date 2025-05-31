@@ -43,8 +43,8 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests((authorize) ->
                         //authorize.anyRequest().authenticated()
-                        authorize.requestMatchers(HttpMethod.GET, "/api/**").permitAll()
-                                .requestMatchers("/api/v1/auth/**").permitAll()
+                        authorize.requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/api/plant/**").hasRole("USER")
                                 .anyRequest().authenticated()
 
                 ).exceptionHandling(exception -> exception
@@ -57,9 +57,4 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 }
