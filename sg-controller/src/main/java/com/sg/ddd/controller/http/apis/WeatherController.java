@@ -1,13 +1,15 @@
-package com.sg.ddd.controller.http;
+package com.sg.ddd.controller.http.apis;
 
-import com.sg.ddd.application.payload.WeatherDto;
-import com.sg.ddd.application.payload.WeatherRequest;
+import com.sg.ddd.application.payload.apis.dto.WeatherDto;
+import com.sg.ddd.application.payload.apis.req.WeatherRequest;
 import com.sg.ddd.application.service.weather.WeatherService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/weather")
+@Slf4j
 public class WeatherController {
 
     private final WeatherService weatherService;

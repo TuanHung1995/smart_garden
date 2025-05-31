@@ -1,8 +1,7 @@
 package com.sg.ddd.controller.http.auth;
 
-import com.sg.ddd.application.payload.*;
+import com.sg.ddd.application.payload.auth.*;
 import com.sg.ddd.application.service.auth.AuthAppService;
-import com.sg.ddd.application.service.user.UserAppService;
 import com.sg.ddd.domain.model.entity.User;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

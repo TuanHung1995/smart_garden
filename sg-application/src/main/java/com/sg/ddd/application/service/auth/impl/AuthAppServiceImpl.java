@@ -1,7 +1,7 @@
 package com.sg.ddd.application.service.auth.impl;
 
 import com.sg.ddd.application.service.auth.AuthAppService;
-import com.sg.ddd.application.payload.LoginRequest;
+import com.sg.ddd.application.payload.auth.LoginRequest;
 import com.sg.ddd.domain.model.entity.User;
 import com.sg.ddd.domain.service.AuthDomainService;
 import com.sg.ddd.infrastructure.security.JwtTokenProvider;

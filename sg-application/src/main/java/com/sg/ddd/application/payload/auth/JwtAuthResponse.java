@@ -1,4 +1,4 @@
-package com.sg.ddd.application.payload;
+package com.sg.ddd.application.payload.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,8 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class WeatherRequest {
+public class JwtAuthResponse {
 
-    private String location; // Vị trí cần lấy thông tin thời tiết
+    private String accessToken;
+    private String tokenType = "Bearer";
 
 }

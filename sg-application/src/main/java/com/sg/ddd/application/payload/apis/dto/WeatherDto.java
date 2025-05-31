@@ -1,4 +1,4 @@
-package com.sg.ddd.application.payload;
+package com.sg.ddd.application.payload.apis.dto;
 
 import com.sg.ddd.infrastructure.payload.WeatherResponse;
 import lombok.AllArgsConstructor;

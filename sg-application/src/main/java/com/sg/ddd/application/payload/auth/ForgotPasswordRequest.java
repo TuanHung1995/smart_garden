@@ -1,4 +1,4 @@
-package com.sg.ddd.application.payload;
+package com.sg.ddd.application.payload.auth;
 
 import lombok.Data;
 

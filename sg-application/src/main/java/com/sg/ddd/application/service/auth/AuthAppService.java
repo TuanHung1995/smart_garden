@@ -1,6 +1,6 @@
 package com.sg.ddd.application.service.auth;
 
-import com.sg.ddd.application.payload.LoginRequest;
+import com.sg.ddd.application.payload.auth.LoginRequest;
 import com.sg.ddd.domain.model.entity.User;
 
 public interface AuthAppService {

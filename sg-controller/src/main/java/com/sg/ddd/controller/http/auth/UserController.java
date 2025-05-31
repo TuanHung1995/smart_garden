@@ -1,7 +1,5 @@
 package com.sg.ddd.controller.http.auth;
 
-import com.sg.ddd.application.payload.JwtAuthResponse;
-import com.sg.ddd.application.payload.LoginRequest;
 import com.sg.ddd.application.service.auth.AuthAppService;
 import com.sg.ddd.application.service.user.UserAppService;
 import com.sg.ddd.controller.http.auth.dto.FindUserRequest;
@@ -15,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
 import java.util.Optional;
 
 @RestController
