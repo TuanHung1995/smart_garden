@@ -35,8 +35,8 @@ public class CurrentUserProviderImpl implements CurrentUserProvider {
         }
 
         Object principal = auth.getPrincipal();
-        if (principal instanceof Long id) {
-            return Optional.of(id);
+        if (principal instanceof UserPrincipal userPrincipal) {
+            return Optional.of(userPrincipal.getId());
         }
 
         return Optional.empty();

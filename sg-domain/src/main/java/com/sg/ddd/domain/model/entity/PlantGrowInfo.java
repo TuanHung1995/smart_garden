@@ -31,7 +31,7 @@ public class PlantGrowInfo {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "garden_id", nullable = false)
+    @JoinColumn(name = "garden_id")
     private Garden garden;
 
     @OneToOne
