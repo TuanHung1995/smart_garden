@@ -9,4 +9,6 @@ public interface PlantGrowInfoJPAMapper extends JpaRepository<PlantGrowInfo, Lon
 
     List<PlantGrowInfo> findAllByUserEmail(String email);
 
+    List<PlantGrowInfo> findAllByUserId(Long id);
+
 }

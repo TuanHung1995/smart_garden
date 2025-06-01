@@ -8,4 +8,7 @@ public interface PlantGrowInfoDomainService {
 
     List<PlantGrowInfo> getAllPlantGrowInfoByEmail(String email);
 
+    List<PlantGrowInfo> addPlantGrowInfo(String name, String description,
+//                                         String mediaId
+                                        String type, String gardenId);
 }

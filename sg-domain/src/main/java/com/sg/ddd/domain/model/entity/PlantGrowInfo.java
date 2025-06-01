@@ -25,8 +25,17 @@ public class PlantGrowInfo {
     private String description;
     private String type;
 
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "garden_id", nullable = false)
+    private Garden garden;
+
+    @OneToOne
+    @JoinColumn(name = "plant_image_id")
+    private Media media;
 
 }

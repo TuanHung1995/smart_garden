@@ -44,7 +44,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         //authorize.anyRequest().authenticated()
                         authorize.requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/api/plant/**").hasRole("USER")
+                                .requestMatchers("/api/v1/plant/**").hasRole("USER")
                                 .anyRequest().authenticated()
 
                 ).exceptionHandling(exception -> exception

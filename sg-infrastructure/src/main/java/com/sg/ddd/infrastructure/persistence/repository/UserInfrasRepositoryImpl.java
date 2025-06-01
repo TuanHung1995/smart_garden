@@ -39,6 +39,11 @@ public class UserInfrasRepositoryImpl implements UserRepository {
     }
 
     @Override
+    public User findById(Long id) {
+        return userJPAMapper.findById(id).orElseThrow(() -> new RuntimeException("User not found with ID: " + id));
+    }
+
+    @Override
     public User save(String email, String password, String address, String phone) {
         User user = new User();
         user.setEmail(email);

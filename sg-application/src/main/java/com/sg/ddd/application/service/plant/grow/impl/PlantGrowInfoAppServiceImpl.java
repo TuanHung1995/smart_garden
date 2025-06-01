@@ -19,15 +19,27 @@ public class PlantGrowInfoAppServiceImpl implements PlantGrowInfoAppService {
         this.currentUserProvider = currentUserProvider;
     }
 
-//    @Override
-//    public List<PlantGrowInfo> getAllPlantGrowInfoByEmail(String email) {
-//        return plantGrowInfoDomainService.getAllPlantGrowInfoByEmail(email);
-//    }
     @Override
     public List<PlantGrowInfo> getAllPlantGrowInfoByEmail() {
         String email = currentUserProvider.getCurrentUserEmail()
                 .orElseThrow(() -> new RuntimeException("Current user email not found"));
         return plantGrowInfoDomainService.getAllPlantGrowInfoByEmail(email);
+    }
+
+    /**
+     * Adds new PlantGrowInfo entities for the current user.
+     *
+     * @param name        the name of the plant
+     * @param description a description of the plant
+//     * @param mediaId    the ID of the plant's media (image or video)
+     * @param type        the type of the plant
+//     * @param userId      the ID of the user
+     * @param gardenId    the ID of the garden
+     * @return a list of newly added PlantGrowInfo entities
+     */
+    @Override
+    public List<PlantGrowInfo> addPlantGrowInfo(String name, String description, String type, String gardenId) {
+        return plantGrowInfoDomainService.addPlantGrowInfo(name, description, type, gardenId);
     }
 
 }

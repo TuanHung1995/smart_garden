@@ -1,5 +1,6 @@
 package com.sg.ddd.controller.http.plant;
 
+import com.sg.ddd.application.payload.plant.grow.AddPlantGrowInfoRequest;
 import com.sg.ddd.application.service.plant.grow.PlantGrowInfoAppService;
 import com.sg.ddd.controller.model.enums.ResultUtil;
 import com.sg.ddd.controller.model.vo.ResultMessage;
@@ -20,13 +21,19 @@ public class PlantController {
         this.plantGrowInfoAppService = plantGrowInfoAppService;
     }
 
-//    @PostMapping("/add-plant-grow-info")
-//    public ResultMessage<List<PlantGrowInfo>> addPlantGrowInfo() {
-//        log.info("Adding plant grow info");
-//        List<PlantGrowInfo> plantGrowInfos = plantGrowInfoAppService.addPlant();
-//        return ResultMessage.success(plantGrowInfos);
-//    }
-
+    /**
+     * Adds a new plant grow information entry.
+     *
+     * @param request the request containing plant grow information details
+     * @return a ResultMessage containing a list of PlantGrowInfo objects
+     */
+    @PostMapping("/add-plant-grow-info")
+    public ResultMessage<List<PlantGrowInfo>> addPlantGrowInfo(@RequestBody AddPlantGrowInfoRequest request) {
+        log.info("Adding plant grow info");
+        List<PlantGrowInfo> plantGrowInfos = plantGrowInfoAppService.addPlantGrowInfo(request.getName(),
+                request.getDescription(), request.getType(), request.getGardenId());
+        return ResultUtil.data(plantGrowInfos);
+    }
 
     /**
      * Retrieves all plant grow information for the current user.

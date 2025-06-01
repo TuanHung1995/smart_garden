@@ -5,8 +5,18 @@ import com.sg.ddd.domain.model.entity.PlantGrowInfo;
 import java.util.List;
 
 public interface PlantGrowInfoAppService {
-
-//    List<PlantGrowInfo> getAllPlantGrowInfoByEmail(String email);
+    /**
+     * Retrieves all PlantGrowInfo entities associated with the current user's email.
+     *
+     * @return a list of PlantGrowInfo entities
+     */
     List<PlantGrowInfo> getAllPlantGrowInfoByEmail();
+
+    /**
+     * Adds new PlantGrowInfo entities for the current user.
+     *
+     * @return a list of newly added PlantGrowInfo entities
+     */
+    List<PlantGrowInfo> addPlantGrowInfo(String name, String description, String type, String gardenId);
 
 }

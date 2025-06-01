@@ -27,4 +27,19 @@ public class CurrentUserProviderImpl implements CurrentUserProvider {
         return Optional.empty();
     }
 
+    @Override
+    public Optional<Long> getCurrentUserId() {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth == null || !auth.isAuthenticated()) {
+            return Optional.empty();
+        }
+
+        Object principal = auth.getPrincipal();
+        if (principal instanceof Long id) {
+            return Optional.of(id);
+        }
+
+        return Optional.empty();
+    }
+
 }
