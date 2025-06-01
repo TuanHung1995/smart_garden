@@ -11,4 +11,6 @@ public interface PlantGrowInfoDomainService {
     List<PlantGrowInfo> addPlantGrowInfo(String name, String description,
 //                                         String mediaId
                                         String type, String gardenId);
+
+    List<PlantGrowInfo> deletePlantGrowInfo(Long id);
 }

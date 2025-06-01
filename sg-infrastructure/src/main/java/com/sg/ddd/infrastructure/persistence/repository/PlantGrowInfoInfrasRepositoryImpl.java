@@ -10,6 +10,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -48,5 +49,28 @@ public class PlantGrowInfoInfrasRepositoryImpl implements PlantGrowInfoRepositor
 
         plantGrowInfoJPAMapper.save(plantGrowInfo);
         return plantGrowInfoJPAMapper.findAllByUserId(user.getId());
+    }
+
+    /**
+     * Find a PlantGrowInfo by its ID.
+     *
+     * @param id the ID of the PlantGrowInfo
+     * @return an Optional containing the PlantGrowInfo if found, otherwise empty
+     */
+    @Override
+    public Optional<PlantGrowInfo> findById(Long id) {
+        return plantGrowInfoJPAMapper.findById(id);
+    }
+
+    /**
+     * Delete a PlantGrowInfo entity.
+     *
+     * @param plantGrowInfo the PlantGrowInfo entity to be deleted
+     * @return a list of remaining PlantGrowInfo entities after deletion
+     */
+    @Override
+    public List<PlantGrowInfo> deletePlantGrowInfo(PlantGrowInfo plantGrowInfo) {
+        plantGrowInfoJPAMapper.delete(plantGrowInfo);
+        return plantGrowInfoJPAMapper.findAllByUserId(plantGrowInfo.getUser().getId());
     }
 }

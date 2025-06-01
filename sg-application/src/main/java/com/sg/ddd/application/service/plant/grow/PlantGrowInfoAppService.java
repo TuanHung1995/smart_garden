@@ -19,4 +19,11 @@ public interface PlantGrowInfoAppService {
      */
     List<PlantGrowInfo> addPlantGrowInfo(String name, String description, String type, String gardenId);
 
+    /**
+     * Deletes a PlantGrowInfo entity by its ID.
+     *
+     * @param id the ID of the PlantGrowInfo entity to delete
+     */
+    List<PlantGrowInfo> deletePlantGrowInfo(Long id);
+
 }

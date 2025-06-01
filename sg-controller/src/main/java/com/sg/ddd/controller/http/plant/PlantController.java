@@ -29,7 +29,6 @@ public class PlantController {
      */
     @PostMapping("/add-plant-grow-info")
     public ResultMessage<List<PlantGrowInfo>> addPlantGrowInfo(@RequestBody AddPlantGrowInfoRequest request) {
-        log.info("Adding plant grow info");
         List<PlantGrowInfo> plantGrowInfos = plantGrowInfoAppService.addPlantGrowInfo(request.getName(),
                 request.getDescription(), request.getType(), request.getGardenId());
         return ResultUtil.data(plantGrowInfos);
@@ -44,6 +43,18 @@ public class PlantController {
     public ResultMessage<List<PlantGrowInfo>> getAllPlantGrowInfo() {
         List<PlantGrowInfo> plantGrowInfoListByEmail= plantGrowInfoAppService.getAllPlantGrowInfoByEmail();
         return ResultUtil.data(plantGrowInfoListByEmail);
+    }
+
+    /**
+     * Deletes a plant grow information entry by its ID.
+     *
+     * @param id the ID of the plant grow information entry to delete
+     * @return a ResultMessage containing a list of PlantGrowInfo objects after deletion
+     */
+    @DeleteMapping("/delete-plant-grow-info/{planGrowInfoId}")
+    public ResultMessage<List<PlantGrowInfo>> deletePlantGrowInfo(@PathVariable("planGrowInfoId") Long id) {
+        List<PlantGrowInfo> plantGrowInfoList = plantGrowInfoAppService.deletePlantGrowInfo(id);
+        return ResultUtil.data(plantGrowInfoList);
     }
 
 }

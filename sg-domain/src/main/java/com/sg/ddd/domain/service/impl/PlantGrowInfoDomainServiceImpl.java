@@ -55,4 +55,17 @@ public class PlantGrowInfoDomainServiceImpl implements PlantGrowInfoDomainServic
 
         return plantGrowInfoRepository.addPlantGrowInfo(user, garden, plantGrowInfo);
     }
+
+    /**
+     * Deletes a PlantGrowInfo by its ID.
+     *
+     * @param id the ID of the PlantGrowInfo to delete
+     * @return a list of remaining PlantGrowInfo after deletion
+     */
+    @Override
+    public List<PlantGrowInfo> deletePlantGrowInfo(Long id) {
+        PlantGrowInfo plantGrowInfo = plantGrowInfoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("PlantGrowInfo not found with ID: " + id));
+        return plantGrowInfoRepository.deletePlantGrowInfo(plantGrowInfo);
+    }
 }

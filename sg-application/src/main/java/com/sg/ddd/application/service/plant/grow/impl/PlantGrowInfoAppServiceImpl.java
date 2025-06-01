@@ -19,6 +19,11 @@ public class PlantGrowInfoAppServiceImpl implements PlantGrowInfoAppService {
         this.currentUserProvider = currentUserProvider;
     }
 
+    /**
+     * Retrieves all PlantGrowInfo entities associated with the current user's email.
+     *
+     * @return a list of PlantGrowInfo entities
+     */
     @Override
     public List<PlantGrowInfo> getAllPlantGrowInfoByEmail() {
         String email = currentUserProvider.getCurrentUserEmail()
@@ -33,13 +38,23 @@ public class PlantGrowInfoAppServiceImpl implements PlantGrowInfoAppService {
      * @param description a description of the plant
 //     * @param mediaId    the ID of the plant's media (image or video)
      * @param type        the type of the plant
-//     * @param userId      the ID of the user
      * @param gardenId    the ID of the garden
      * @return a list of newly added PlantGrowInfo entities
      */
     @Override
     public List<PlantGrowInfo> addPlantGrowInfo(String name, String description, String type, String gardenId) {
         return plantGrowInfoDomainService.addPlantGrowInfo(name, description, type, gardenId);
+    }
+
+    /**
+     * Deletes a PlantGrowInfo entity by its ID.
+     *
+     * @param id the ID of the PlantGrowInfo entity to delete
+     * @return a list of remaining PlantGrowInfo entities after deletion
+     */
+    @Override
+    public List<PlantGrowInfo> deletePlantGrowInfo(Long id) {;
+        return plantGrowInfoDomainService.deletePlantGrowInfo(id);
     }
 
 }
