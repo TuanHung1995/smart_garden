@@ -24,12 +24,10 @@ public class User {
     private String email;
     private String role; // ADMIN or USER
     private String phone;
-    private String password; // Password hash
+    private String password;
     private String address;
     private double latitude;
     private double longitude;
     private String resetToken; // Token for password reset
-    private Date createdAt;
-    private Date updatedAt;
 
 }

@@ -252,11 +252,13 @@ CREATE TABLE IF NOT EXISTS `sg_001`.`sg_settings_001` (
 -- sg_garden_001
 CREATE TABLE IF NOT EXISTS `sg_001`.`sg_garden_001` (
     `id` BIGINT(20) NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `user_id` BIGINT(20) NOT NULL COMMENT 'Reference to sg_users_001',
     `name` VARCHAR(255) NOT NULL COMMENT 'Garden name',
     `description` TEXT NOT NULL COMMENT 'Garden description',
     `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
     `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Last update time',
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_garden_user` FOREIGN KEY (`user_id`) REFERENCES `sg_users_001`(`id`),
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Garden information table';
 
 -- sg_plant_grow_info_001

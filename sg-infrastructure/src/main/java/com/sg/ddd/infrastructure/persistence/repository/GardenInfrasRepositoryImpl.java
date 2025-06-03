@@ -5,6 +5,8 @@ import com.sg.ddd.domain.repository.GardenRepository;
 import com.sg.ddd.infrastructure.persistence.mapper.GardenJPAMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class GardenInfrasRepositoryImpl implements GardenRepository {
 
@@ -18,5 +20,16 @@ public class GardenInfrasRepositoryImpl implements GardenRepository {
     public Garden findById(Long id) {
         return gardenJPAMapper.findById(id)
                 .orElseThrow(() -> new RuntimeException("Garden not found with id: " + id));
+    }
+
+    @Override
+    public List<Garden> findAllByUserId(Long userId) {
+        return gardenJPAMapper.findAllByUserId(userId);
+    }
+
+    @Override
+    public List<Garden> save(Garden garden) {
+        gardenJPAMapper.save(garden);
+        return gardenJPAMapper.findAllByUserId(garden.getUser().getId());
     }
 }

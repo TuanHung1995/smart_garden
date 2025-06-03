@@ -1,9 +1,6 @@
 package com.sg.ddd.domain.model.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +24,9 @@ public class Garden {
     private Long id;
     private String name;
     private String description;
-    private Date createdAt;
-    private Date updatedAt;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
 }

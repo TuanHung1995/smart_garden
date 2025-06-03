@@ -45,8 +45,8 @@ public class SecurityConfig {
                         //authorize.anyRequest().authenticated()
                         authorize.requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/api/v1/plant/**").hasRole("USER")
+                                .requestMatchers("/api/v1/garden/**").hasRole("USER")
                                 .anyRequest().authenticated()
-
                 ).exceptionHandling(exception -> exception
                         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 ).sessionManagement(session -> session

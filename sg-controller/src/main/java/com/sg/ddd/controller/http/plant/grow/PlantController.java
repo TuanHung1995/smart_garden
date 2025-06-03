@@ -1,4 +1,4 @@
-package com.sg.ddd.controller.http.plant;
+package com.sg.ddd.controller.http.plant.grow;
 
 import com.sg.ddd.application.payload.plant.grow.AddPlantGrowInfoRequest;
 import com.sg.ddd.application.service.plant.grow.PlantGrowInfoAppService;

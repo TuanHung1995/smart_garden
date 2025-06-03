@@ -26,7 +26,5 @@ public class Media {
     private Long id;
     private String url;
     private String type;
-    private Date createdAt;
-    private Date updatedAt;
 
 }

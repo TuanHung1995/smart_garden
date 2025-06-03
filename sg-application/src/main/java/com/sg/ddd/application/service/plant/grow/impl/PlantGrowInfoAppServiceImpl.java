@@ -4,11 +4,13 @@ import com.sg.ddd.application.service.plant.grow.PlantGrowInfoAppService;
 import com.sg.ddd.domain.model.entity.PlantGrowInfo;
 import com.sg.ddd.domain.port.CurrentUserProvider;
 import com.sg.ddd.domain.service.PlantGrowInfoDomainService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@Slf4j
 public class PlantGrowInfoAppServiceImpl implements PlantGrowInfoAppService {
 
     private final PlantGrowInfoDomainService plantGrowInfoDomainService;
