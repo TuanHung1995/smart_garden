@@ -1,4 +1,4 @@
-package com.sg.ddd.infrastructure.security;
+package com.sg.ddd.infrastructure.config.security;
 
 import com.sg.ddd.domain.model.entity.User;
 import com.sg.ddd.domain.repository.UserRepository;

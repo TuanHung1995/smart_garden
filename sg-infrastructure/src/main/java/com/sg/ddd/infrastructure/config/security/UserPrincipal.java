@@ -1,4 +1,4 @@
-package com.sg.ddd.infrastructure.security;
+package com.sg.ddd.infrastructure.config.security;
 
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;

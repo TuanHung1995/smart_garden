@@ -4,7 +4,7 @@ import com.sg.ddd.application.service.auth.AuthAppService;
 import com.sg.ddd.application.payload.auth.LoginRequest;
 import com.sg.ddd.domain.model.entity.User;
 import com.sg.ddd.domain.service.AuthDomainService;
-import com.sg.ddd.infrastructure.security.JwtTokenProvider;
+import com.sg.ddd.infrastructure.config.security.JwtTokenProvider;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;

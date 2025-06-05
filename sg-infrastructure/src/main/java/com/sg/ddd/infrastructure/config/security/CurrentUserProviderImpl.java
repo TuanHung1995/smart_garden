@@ -1,4 +1,4 @@
-package com.sg.ddd.infrastructure.security;
+package com.sg.ddd.infrastructure.config.security;
 
 import com.sg.ddd.domain.port.CurrentUserProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
