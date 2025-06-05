@@ -1,12 +1,17 @@
 package com.sg.ddd.controller.http.plant.grow;
 
+import com.sg.ddd.application.payload.file.UploadMediaRequest;
 import com.sg.ddd.application.payload.plant.grow.AddPlantGrowInfoRequest;
+import com.sg.ddd.application.service.media.MediaAppService;
 import com.sg.ddd.application.service.plant.grow.PlantGrowInfoAppService;
 import com.sg.ddd.controller.model.enums.ResultUtil;
 import com.sg.ddd.controller.model.vo.ResultMessage;
+import com.sg.ddd.domain.model.entity.Media;
 import com.sg.ddd.domain.model.entity.PlantGrowInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -16,9 +21,11 @@ import java.util.List;
 public class PlantController {
 
     private final PlantGrowInfoAppService plantGrowInfoAppService;
+    private final MediaAppService mediaAppService;
 
-    public PlantController(PlantGrowInfoAppService plantGrowInfoAppService) {
+    public PlantController(PlantGrowInfoAppService plantGrowInfoAppService, MediaAppService mediaAppService) {
         this.plantGrowInfoAppService = plantGrowInfoAppService;
+        this.mediaAppService = mediaAppService;
     }
 
     /**
@@ -55,6 +62,12 @@ public class PlantController {
     public ResultMessage<List<PlantGrowInfo>> deletePlantGrowInfo(@PathVariable("planGrowInfoId") Long id) {
         List<PlantGrowInfo> plantGrowInfoList = plantGrowInfoAppService.deletePlantGrowInfo(id);
         return ResultUtil.data(plantGrowInfoList);
+    }
+
+    @PostMapping("/upload")
+    public ResultMessage<Media> uploadMedia(@RequestParam("file") MultipartFile file) {
+        Media savedMedia = mediaAppService.uploadMedia(file);
+        return ResultUtil.data(savedMedia);
     }
 
 }

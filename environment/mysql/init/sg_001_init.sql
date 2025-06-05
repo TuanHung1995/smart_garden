@@ -398,3 +398,32 @@ CREATE TABLE IF NOT EXISTS `sg_001`.`sg_ai_images_001` (
     FOREIGN KEY (`media_id`) REFERENCES `sg_media_001`(`id`),
     FOREIGN KEY (`result_plant_id`) REFERENCES `sg_plants_001`(`id`)
     ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='AI image processing results table';
+
+-- sg_plans_001 --
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_plans_001` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `name` VARCHAR(255) NOT NULL COMMENT 'Plan name',
+    `price` BIGINT NOT NULL COMMENT 'Plan Price (USD)',
+    `description` TEXT COMMENT 'Plan description',
+--     `features` JSON NOT NULL COMMENT 'Features included in the plan',
+    `limits` JSON NOT NULL COMMENT 'Usage limits for the plan (e.g., number of plants, storage space)',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`),
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Subscription plans table';
+
+-- sg_user_plan_001 --
+CREATE TABLE IF NOT EXISTS `sg_001`.`sg_user_plan_001` (
+    `id` BIGINT NOT NULL AUTO_INCREMENT COMMENT 'Primary key',
+    `user_id` BIGINT NOT NULL COMMENT 'Reference to sg_users_001',
+    `plan_id` BIGINT NOT NULL COMMENT 'Reference to sg_plans_001',
+    `start_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Plan start date',
+    `end_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Plan end date',
+    `status` VARCHAR(20) NOT NULL DEFAULT 'active' COMMENT 'Plan status (e.g., active, expired)',
+    `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Creation time',
+    `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT 'Last update time',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`user_id`) REFERENCES `sg_users_001`(`id`),
+    FOREIGN KEY (`plan_id`) REFERENCES `sg_plans_001`(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='User subscription plans table';
+
