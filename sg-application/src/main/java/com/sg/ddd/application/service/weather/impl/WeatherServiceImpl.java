@@ -1,6 +1,6 @@
 package com.sg.ddd.application.service.weather.impl;
 
-import com.sg.ddd.application.payload.WeatherDto;
+import com.sg.ddd.application.payload.apis.dto.WeatherDto;
 import com.sg.ddd.application.service.weather.WeatherService;
 import com.sg.ddd.infrastructure.payload.WeatherResponse;
 import com.sg.ddd.infrastructure.apis.weather.WeatherApiClient;
