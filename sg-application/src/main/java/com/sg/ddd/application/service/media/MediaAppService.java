@@ -6,5 +6,4 @@ import org.springframework.web.multipart.MultipartFile;
 public interface MediaAppService {
 
     Media uploadMedia(MultipartFile file);
-
 }

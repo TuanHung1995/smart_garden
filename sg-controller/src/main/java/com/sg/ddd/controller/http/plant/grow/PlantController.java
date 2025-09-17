@@ -65,8 +65,8 @@ public class PlantController {
     }
 
     @PostMapping("/upload")
-    public ResultMessage<Media> uploadMedia(@RequestParam("file") MultipartFile file) {
-        Media savedMedia = mediaAppService.uploadMedia(file);
+    public ResultMessage<Media> uploadMedia(@RequestBody UploadMediaRequest request) {
+        Media savedMedia = mediaAppService.uploadMedia(request.getFile());
         return ResultUtil.data(savedMedia);
     }
 
